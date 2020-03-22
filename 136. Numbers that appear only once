@@ -1,0 +1,46 @@
+#include <algorithm>
+#include <vector>
+using namespace std;
+class Solution1
+{
+public:
+    int singleNumber(vector<int> &nums) //使用泛型算法
+    {
+        for (auto it = nums.begin(); it != nums.end(); it++)
+            if (count(nums.begin(), nums.end(), *it) == 1)
+                return *it;
+        return 0;
+    }
+}; 
+class Solution2
+{
+public:
+    int singleNumber(vector<int> &nums)
+    {
+        int i, j, cur;
+        int len = nums.size();
+        for (i = 0; i < len; i++)
+        {
+            cur = nums[i];
+            for (j = 0; j < len; j++) //寻找数组后面是否存在相同数字
+            {
+                if (j == i)
+                    continue;
+                if (cur == nums[j])
+                    break;
+            }
+            if (j == len)
+                return cur;
+        }
+        return -1;
+    }
+};
+class Solution3{
+public:
+    int singleNumber(vector<int> &nums){
+        int num=0;
+        for(int i=0;i<nums.size();i++) //对每个数都进行位运算
+            num^=nums[i];
+        return num;
+    }
+};
