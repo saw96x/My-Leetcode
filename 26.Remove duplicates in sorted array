@@ -1,0 +1,44 @@
+#include <vector>
+#include <algorithm>
+using namespace std;
+class Solution1
+{
+    int removeDuplicates1(vector<int> &nums)
+    {
+        auto it = unique(nums.begin(), nums.end()); //使用泛型算法中的unique直接重排并去除重复元素
+        nums.erase(it, nums.end());
+        return nums.size();
+    }
+};
+class Solution2
+{
+    int removeDuplicates(vector<int> &nums)
+    {
+        auto it = unique(nums.begin(), nums.end());
+        return it - nums.begin(); //返回非重复的元素个数，无需清除
+    }
+};
+class Solution3
+{
+    int removeDuplicates(vector<int> &nums) //双指针法
+    {
+        if (nums.empty())
+            return 0;
+        int i = 0;                            //i为慢指针
+        for (int j = 1; j < nums.size(); j++) //j为快指针，遍历链表
+            if (nums[j] != nums[i])           //如果快指针指向的元素和慢指针不同
+                nums[i++] = nums[j];          //让慢指针指向的下一个元素替换为快指针指向的元素
+        return i + 1;
+    }
+};
+class Solution4
+{
+    int removeDuplicates(vector<int> &nums)
+    {
+        int i = 0;
+        for (int n : nums)
+            if (i < 1 || i > nums[i - 1])
+                nums[i++] = n;
+        return i;
+    }
+};
