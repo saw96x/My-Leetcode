@@ -1,0 +1,19 @@
+#include <vector>
+using namespace std;
+class Solution
+{
+public:
+    int findMaxConsecutiveOnes(vector<int> &nums)
+    {
+        int ThisCount = 0, MaxCount = 0;
+        for (int fast = 0; fast < nums.size(); fast++)
+        {
+            if (nums[fast] == 1)
+                ThisCount++;
+            else
+                ThisCount = 0;
+            MaxCount > ThisCount ?: MaxCount = ThisCount;
+        }
+        return MaxCount;
+    }
+};
